@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    testVueX: 'hello from vuex test var!'
   },
   mutations: {
   },
