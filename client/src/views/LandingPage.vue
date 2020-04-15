@@ -17,7 +17,6 @@ export default {
     if (localStorage.access_token) {
       this.$router.push('/dashboard')// Jika ada access_token, paksa masuk ke dashboard
     }
-    console.log(this.$store.state.testVueX)
   }
 }
 </script>

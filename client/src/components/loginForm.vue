@@ -24,12 +24,10 @@ export default {
   },
   methods: {
     login () {
-      console.log('user now logged In')
       const payload = {
         email: this.user.email,
         password: this.user.password
       }
-      console.log(payload, 'this is payload')
       axios({
         method: 'post',
         url: 'http://localhost:3000/login',
@@ -38,6 +36,8 @@ export default {
         .then(result => {
           localStorage.setItem('access_token', result.data.access_token)
           this.$router.push('dashboard')// push ke NAMA component, bukan route-nya
+          // di sini kamu juga ubah state isLoggedIn menjadi true menggunakan commit
+          this.$store.commit('set_isLoggedIn', true)
         })
         .catch(error => {
           console.log(error)

@@ -1,14 +1,13 @@
 <template>
   <div>
-    <h1>DASHBOARD</h1>
-    <button @click="logout">Logout</button>
-    <Product :products1='products'></Product>
-    <div>{{ testMessage }}</div>
+    <h1>Welcome to CMS Dashboard</h1>
+    <Product></Product>
+    <!-- <div>{{ testMessage }}</div> -->
+    <!-- <button @click='changeSentence("Hello from Dashboard instead!")'>Change Test Sentence</button> -->
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 import Product from '../components/Product'
 
 export default {
@@ -21,15 +20,21 @@ export default {
       products: []
     }
   },
+  methods: {
+    changeSentence (payload) {
+      // di sini kita akses mutation changeStatement
+      this.$store.commit('changeStatement', { newStatement: payload })
+    }
+  },
   computed: { // computed object keys
     testMessage () { // methods in functions
       return this.$store.state.testVueX
-    }
-  },
-  methods: {
-    logout () {
-      localStorage.clear()
-      this.$router.push('/')
+    },
+    isLoggedIn () {
+      return this.$store.state.isLoggedIn
+    },
+    allProducts () {
+      return this.$store.state.allProducts
     }
   },
   created () {
@@ -37,20 +42,8 @@ export default {
       this.$router.push('/')
     } else {
       // Apabila token ada / loggedIn, maka mari ambil data products-nya
-      axios({
-        method: 'get',
-        url: 'http://localhost:3000/products',
-        headers: {
-          access_token: localStorage.access_token
-        }
-      })
-        .then(result => {
-          console.log(result)
-          this.products = result.data.products
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.$store.dispatch('fetchProducts')
+      this.$store.commit('set_isLoggedIn', true)
     }
   }
 }

@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
 import landingPage from '../views/LandingPage.vue'
 import dashboard from '../views/Dashboard.vue'
+import addProduct from '../views/AddProductPage.vue'
+import editProduct from '../views/EditProductPage.vue'
 
 Vue.use(VueRouter)
 
@@ -16,6 +18,16 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: dashboard
+  },
+  {
+    path: '/addProduct',
+    name: 'addProduct',
+    component: addProduct
+  },
+  {
+    path: '/editProduct/:id',
+    name: 'editProduct',
+    component: editProduct
   }
 ]
 
